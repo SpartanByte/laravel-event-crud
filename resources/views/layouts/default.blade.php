@@ -9,13 +9,13 @@
         {{-- This is the key part for your CSS (e.g., Tailwind CSS) --}}
         @vite('resources/css/app.css')
     </head>
-    <body>
+    <body class="bg-[#FDFDFC] dark:bg-[#0a0a0a] text-[#1b1b18] flex items-center lg:justify-center min-h-screen flex-col">
         <div class="text-3xl">
             <header class="row">
                 @include('includes.header')
             </header>
 
-            <div id="" class="">
+            <div id="" class="p-6 lg:p-8 ">
                 <!-- main content -->
                 <div id="content">
                     @yield('content')

@@ -3,10 +3,12 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EventController;
-
-Route::get('/', function () {
-    return view('welcome');
-});
+use App\Http\Controllers\PageController;
 
 // Laravel 11 route syntax
-Route::get('/events', [EventController::class, 'index']);
+
+// Pages
+Route::get('/', [PageController::class, 'home'])->name('home');
+
+// Events
+Route::get('/events', [EventController::class, 'index'])->name('events');
