@@ -1,0 +1,45 @@
+services:
+  php-laravel-event-crud:
+    build:
+      context: ./
+    container_name: php-laravel-event-crud
+    restart: unless-stopped
+    # env_file: ./.env  # Uncomment if .env file exists
+    expose:
+      - 9000  # PHP-FPM default port
+    networks:
+      - appnet
+    depends_on:
+      - mysql-db  # Laravel typically uses MySQL; see below
+    # Add comments for clarity
+    # This service runs the Laravel PHP backend using PHP-FPM
+
+  mysql-db:
+    image: mysql:latest
+    container_name: mysql-db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: laravel
+      MYSQL_USER: laravel
+      MYSQL_PASSWORD: secret
+      MYSQL_ROOT_PASSWORD: rootsecret
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - appnet
+    # This service provides a MySQL database for Laravel
+
+networks:
+  appnet:
+    driver: bridge
+
+volumes:
+  mysql-data:
+    # Persistent storage for MySQL database
